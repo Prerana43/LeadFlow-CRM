@@ -32,7 +32,7 @@ function Sidebar() {
 
   return (
 
-    <div className="w-72 bg-[#111827] text-white min-h-screen flex flex-col justify-between shadow-2xl">
+    <div className="hidden md:flex md:flex-col md:w-72 bg-[#111827] text-white min-h-screen flex flex-col justify-between shadow-2xl">
 
       <div>
 
