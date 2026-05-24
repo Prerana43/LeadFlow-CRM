@@ -117,7 +117,7 @@ VITE_API_URL=https://leadflow-crm-tum5.onrender.com
 ## Clone Repository
 
 ```bash
-git clone YOUR_GITHUB_REPO_LINK
+git clone https://github.com/Prerana43/LeadFlow-CRM.git
 ```
 
 ---
