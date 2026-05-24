@@ -210,4 +210,4 @@ The dashboard includes:
 
 # Author
 
-Developed using MERN Stack for technical assessment submission.
+Developed by Prerana Nishad using MERN Stack.
