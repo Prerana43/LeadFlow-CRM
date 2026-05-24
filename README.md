@@ -107,13 +107,7 @@ JWT_SECRET=your_secret_key
 ## Frontend (`client/.env`)
 
 ```env
-VITE_API_URL=your_backend_api_url
-```
-
-Example:
-
-```env
-VITE_API_URL=https://your-backend.onrender.com/api
+VITE_API_URL=https://leadflow-crm-tum5.onrender.com
 ```
 
 ---
