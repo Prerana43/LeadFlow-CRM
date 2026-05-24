@@ -12,6 +12,12 @@ const leadSchema = new mongoose.Schema({
 
   dealValue: Number,
 
+  notes: String,
+
+  nextFollowUp: String,
+
+  assignedTo: String,
+
 });
 
 module.exports = mongoose.model(

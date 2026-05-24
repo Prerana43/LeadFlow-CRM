@@ -11,6 +11,9 @@ function Leads() {
     email: "",
     status: "New",
     dealValue: "",
+    notes: "",
+    nextFollowUp: "",
+    assignedTo: "",
   });
 
   const fetchLeads = async () => {
@@ -32,6 +35,10 @@ function Leads() {
       clientName: "",
       email: "",
       status: "New",
+      dealValue: "",
+      notes: "",
+      nextFollowUp: "",
+      assignedTo: "",
     });
 
     fetchLeads();
@@ -96,6 +103,7 @@ function Leads() {
             type="number"
             placeholder="Deal Value"
             className="border p-3 rounded-lg"
+            value={formData.dealValue}
             onChange={(e) =>
               setFormData({
                 ...formData,
@@ -103,6 +111,49 @@ function Leads() {
               })
             }
           />
+
+          <textarea
+            placeholder="Client Notes"
+            rows="4"
+            className="border p-3 rounded-lg col-span-2"
+            value={formData.notes}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                notes: e.target.value,
+              })
+            }
+          />
+          <input
+            type="date"
+            className="border p-3 rounded-lg"
+            value={formData.nextFollowUp}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                nextFollowUp: e.target.value,
+              })
+            }
+          />
+
+          <select
+            className="border p-3 rounded-lg"
+            value={formData.assignedTo}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                assignedTo: e.target.value,
+              })
+            }
+          >
+            <option value="">Assign BDA</option>
+
+            <option value="Rahul Sharma">Rahul Sharma</option>
+
+            <option value="Priya Verma">Priya Verma</option>
+
+            <option value="Amit Singh">Amit Singh</option>
+          </select>
 
           <select
             className="border p-3 rounded-lg"
@@ -126,39 +177,122 @@ function Leads() {
           </button>
         </form>
 
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left p-3">Company</th>
-                <th className="text-left p-3">Client</th>
-                <th className="text-left p-3">Email</th>
-                <th className="text-left p-3">Status</th>
-                <th className="text-left p-3">Deal Value</th>
-                <th className="text-left p-3">Action</th>
-              </tr>
-            </thead>
+        <div className="bg-white rounded-3xl shadow-md p-6 overflow-hidden">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">
+                Leads Overview
+              </h2>
 
-            <tbody>
-              {leads.map((lead) => (
-                <tr key={lead._id} className="border-b">
-                  <td className="p-3">{lead.companyName}</td>
-                  <td className="p-3">{lead.clientName}</td>
-                  <td className="p-3">{lead.email}</td>
-                  <td className="p-3">{lead.status}</td>
-                  <td className="p-3">₹{lead.dealValue}</td>
-                  <td className="p-3">
-                    <button
-                      onClick={() => deleteLead(lead._id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded"
-                    >
-                      Delete
-                    </button>
-                  </td>
+              <p className="text-gray-500 mt-1">
+                Manage and monitor all client leads
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b bg-gray-50 text-gray-600 text-sm">
+                  <th className="text-left p-4 font-semibold">Company</th>
+
+                  <th className="text-left p-4 font-semibold">
+                    Client Details
+                  </th>
+
+                  <th className="text-left p-4 font-semibold">Deal</th>
+
+                  <th className="text-left p-4 font-semibold">Status</th>
+
+                  <th className="text-left p-4 font-semibold">Notes</th>
+
+                  <th className="text-left p-4 font-semibold">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {leads.map((lead) => (
+                  <tr
+                    key={lead._id}
+                    className="border-b hover:bg-gray-50 transition"
+                  >
+                    {/* COMPANY */}
+
+                    <td className="p-4">
+                      <h3 className="font-semibold text-gray-800">
+                        {lead.companyName}
+                      </h3>
+
+                      <p className="text-sm text-gray-500 mt-1">
+                        {lead.assignedTo || "Unassigned"}
+                      </p>
+                    </td>
+
+                    {/* CLIENT */}
+
+                    <td className="p-4">
+                      <p className="font-medium text-gray-700">
+                        {lead.clientName}
+                      </p>
+
+                      <p className="text-sm text-gray-500">{lead.email}</p>
+
+                      <p className="text-xs text-emerald-600 mt-1">
+                        Follow-Up: {lead.nextFollowUp || "N/A"}
+                      </p>
+                    </td>
+
+                    {/* DEAL */}
+
+                    <td className="p-4 whitespace-nowrap">
+                      <p className="font-semibold text-emerald-600">
+                        ₹{lead.dealValue}
+                      </p>
+                    </td>
+
+                    {/* STATUS */}
+
+                    <td className="p-4 whitespace-nowrap">
+                      <span
+                        className={
+                          lead.status === "Won"
+                            ? "bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
+                            : lead.status === "Lost"
+                              ? "bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm"
+                              : lead.status === "Contacted"
+                                ? "bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
+                                : lead.status === "Negotiation"
+                                  ? "bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm"
+                                  : "bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                        }
+                      >
+                        {lead.status}
+                      </span>
+                    </td>
+
+                    {/* NOTES */}
+
+                    <td className="p-4 max-w-[220px]">
+                      <p className="truncate text-gray-600 text-sm">
+                        {lead.notes || "No notes"}
+                      </p>
+                    </td>
+
+                    {/* ACTION */}
+
+                    <td className="p-4">
+                      <button
+                        onClick={() => deleteLead(lead._id)}
+                        className="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg text-sm"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
